@@ -1,0 +1,169 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設計稿預覽實作</title>
+    <!-- 引入 Roboto 字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        /* 基礎重置與字型設定 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        /* 主容器：依照設計圖右側寬度約為 496px (20+450+26) */
+        .preview-container {
+            width: 100%;
+            max-width: 496px;
+            background-color: #ffffff;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* 標題與按鈕區域 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 35px; /* 根據標示高度 35 */
+            padding: 0 26px 0 20px; /* 配合下方圖片的左右邊距 */
+            border-bottom: 1px solid #eaeaea; 
+        }
+
+        .header-title {
+            font-size: 13px;
+            color: #2f2f2f;
+        }
+
+        /* --- 核心按鈕樣式 (依照標示嚴格實作) --- */
+        .btn-toggle-info {
+            height: 22px; /* 標示: h22 */
+            border-radius: 8px; /* 標示: R8 */
+            background-color: #ffffff; /* 標示: background #ffffff */
+            border: 1px solid #2f2f2f; /* 標示: outline 1px #2f2f2f */
+            color: #2f2f2f; /* 標示: Color: #2f2f2f */
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400; /* 標示: Roboto Regular */
+            font-size: 13px; /* 標示: 13px */
+            padding: 0 18px; /* 標示: 左右間距 18 */
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .btn-toggle-info:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* 圖片區域 */
+        .image-wrapper {
+            padding: 20px 26px 20px 20px; /* 左 20, 右 26 */
+            text-align: center;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            display: block;
+            border-radius: 2px;
+        }
+
+        /* 詳細資訊區域 */
+        .details-panel {
+            padding: 0 26px 10px 20px;
+            display: none; /* 預設隱藏 */
+        }
+
+        /* 展開時的狀態 */
+        .details-panel.active {
+            display: block;
+        }
+
+        .details-list {
+            list-style: none;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400; 
+            font-size: 13px; 
+            color: #707070; /* 標示: Color: #707070 */
+            margin-top: 10px; /* 標示: Min 10 */
+        }
+
+        .details-list li {
+            margin-bottom: 6px; /* 標示: 間距 6 */
+            word-wrap: break-word; /* 讓長路徑可以換行 */
+            line-height: 1.4;
+        }
+
+        .details-list li:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="preview-container">
+        <!-- 標題與按鈕區塊 -->
+        <div class="header">
+            <span class="header-title">預覽</span>
+            <button id="infoToggleBtn" class="btn-toggle-info">查看資訊</button>
+        </div>
+
+        <!-- 圖片區塊 -->
+        <div class="image-wrapper">
+            <!-- 使用 picsum 產生一張 450x240 的假圖代替風景照 -->
+            <img src="https://picsum.photos/id/1015/450/240" alt="風景預覽圖">
+        </div>
+
+        <!-- 詳細資訊區塊 -->
+        <div id="detailsPanel" class="details-panel">
+            <ul class="details-list">
+                <li>修改日期：2017/10/12</li>
+                <li>類型：JPG</li>
+                <li>大小：466.97KB</li>
+                <li>路徑：\\designcenter.qnap.com.tw\DesignCenter\PM - RD 專案\WEB\Stations\A_Image2PDF\v2\sample</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 等待網頁載入完成
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleBtn = document.getElementById('infoToggleBtn');
+            const detailsPanel = document.getElementById('detailsPanel');
+            let isExpanded = false;
+
+            // 監聽按鈕點擊事件
+            toggleBtn.addEventListener('click', () => {
+                isExpanded = !isExpanded;
+                
+                // 切換面板的顯示狀態並更新按鈕文字
+                if (isExpanded) {
+                    detailsPanel.classList.add('active');
+                    toggleBtn.textContent = '收起資訊';
+                } else {
+                    detailsPanel.classList.remove('active');
+                    toggleBtn.textContent = '查看資訊';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+```
